@@ -7,7 +7,7 @@ and modified by Burey
 
 var alienMsg=['YOU WILL PAY FOR YOUR INSOLENCE, HUMAN SCUM!','The Cake is a LIE!!','Stahhpp, we come in peace ;_;','The horror, OH, THE HORROR!!!','Revenge is Coming, Puny Human!','Oh mighty lord Xeno, accept me to your realm!','Please, for the love of Xeno, will someone delete my browser history????'];
 
-var introMsg=("It happend on the 4th of March, 2017...\nWe were attacked with their full force...\nThey rendered our defences useless...\nyou are earth's last and only hope!\nStop the invasion or we are all doomed....\n\nControls:\nTilt the phone left/right to move the spaceship.\nTap 'FIRE' button to shoot the photon cannons.\n\nThe game is supported ONLY by mobile and uses the phone acceleration sensors for movement.\nthe game is still a work in progress,\nso please reply in the comments if you have any issues or suggestions.\n\n Have fun ^.^\n\n[UPDATE LOG]\nAdded explosion effects.\nAdded scoreboard.\nAdded increasing difficulty.\nAdded shields (start with 3).\nAdded bonuses! pick them for power ups!\nAdded HUD below the canvas.\nAdded graphics to the shields.\nAdded game pause when opening scoreboard.\nAdded game stats on game over.\nAdded intro screen.\nAdded Death Blossoms (Kirk Schafer idea >:p ).\nChanged ship design.\nUpgrade Death Blossoms now switch to tracking mode when there are more than 5 enemies nearby.")
+var introMsg=("It happend on the 4th of March, 2017...\nWe were attacked with their full force...\nThey rendered our defences useless...\nyou are earth's last and only hope!\nStop the invasion or we are all doomed....\n\nControls:\nTilt the phone left/right to move the spaceship.\nTap 'FIRE' button to shoot the photon cannons.\n\nThe game is supported ONLY by mobile and uses the phone acceleration sensors for movement.\nthe game is still a work in progress,\nso please reply in the comments if you have any issues or suggestions.\n\n Have fun ^.^\n\n[UPDATE LOG]\nAdded explosion effects.\nAdded scoreboard.\nAdded increasing difficulty.\nAdded shields (start with 3).\nAdded bonuses! pick them for power ups!\nAdded HUD below the canvas.\nAdded graphics to the shields.\nAdded game pause when opening scoreboard.\nAdded game stats on game over.\nAdded intro screen.\nAdded Death Blossoms (Kirk Schafer idea >:p ).\nChanged ship design.\nUpgrade Death Blossoms now switch to tracking mode when there are more than 5 enemies nearby.\nChanged leveling system: each new level requires 150% more points to reach than the previous.")
 function init(){
 if(window.DeviceMotionEvent){
     window.addEventListener("devicemotion", motion, false);
@@ -273,13 +273,16 @@ function checkHits(){
         createExplosion(enemies[i].x, enemies[i].
         y, "#FFA318");
         
+       
+        console.log("Alien Message Received:\n"+alienMsg[randVal(0,alienMsg.length-1)]);
+        
         score+=enemies[i].size*level;
         if(score>level*levelIncrementer){
            increaseLevel();
         }
-        console.log("Alien Message Received:\n"+alienMsg[randVal(0,alienMsg.length-1)]);
         enemies.splice(i,1);
         shots.splice(j,1);
+        
         break;
         }
       }
@@ -490,9 +493,10 @@ function drawDeath(){
 
 function updateValuesUI(){
     document.getElementById('levelValue').innerHTML=level;
+    document.getElementById('nextLevelValue').innerHTML=((level<maxLevel)? (Math.floor(level*levelIncrementer)):'MAX');
     document.getElementById('scoreValue').innerHTML=score;
     document.getElementById('shieldsValue').innerHTML=shields;
-    document.getElementById('numShotsValue').innerHTML=Math.max(0,maxShots-shots.length)+'/'+maxShots;
+    document.getElementById('numShotsValue').innerHTML=(Math.max(0,maxShots-shots.length)+'/'+maxShots);
     document.getElementById('speedShotsValue').innerHTML=shotSpeed;
     document.getElementById('deathBlossomsValue').innerHTML=deathBlossomShots;
 }
@@ -534,13 +538,10 @@ function drawIntroMessage(){
 }
 
 function showIntro() {
-
-
-drawBackground();
-drawStars();
-drawShip();
-drawIntroMessage();
-
+    drawBackground();
+    drawStars();
+    drawShip();
+    drawIntroMessage();
 }
 
 
@@ -549,6 +550,8 @@ function increaseLevel(){
         return;
     
    level++;
+   levelIncrementer*=1.5;
+   console.log('Next level at: '+(level*levelIncrementer)+' Points!');
    maxEnemies+=5;
    enemySpawnTime=Math.max(1,enemySpawnTime-100);
    clearInterval(enemySpawnerInterval);
@@ -592,16 +595,13 @@ function resumeGame(){
 }
 
 function resetGame(){
+    
 myCanvas.width = window.innerWidth*0.9;
 myCanvas.height = window.innerHeight*0.65;
 yShip = myCanvas.height-shipSize-20;
 
 console.log('Alien Message Received:\nTurn back now, puny human, before you regret it!!!');
-score=0;
-level=1;
-btnNewGame.disabled=true;
-btnFire.disabled=false;
-btnDeathBlossom.disabled=false;
+
 shots=[];
 enemies=[];
 particles=[];
@@ -610,12 +610,21 @@ stars=[];
 for(i=0;i<numStars;i++){
     stars.push({x:Math.random()*myCanvas.width,y:Math.random()*myCanvas.height});
 }
+    
+    // DISABLE/ENABLE CONTROLS
+    btnNewGame.disabled=true;
+    btnFire.disabled=false;
+    btnDeathBlossom.disabled=false;
 
    // RESET TO STARTING SETUP
     
     stats.totalShots=0;
     stats.totalHits=0;
     stats.enemyEncounters=0;
+    
+    score=0;
+    level=1;
+    levelIncrementer=100;
     
     deathBlossomShots=1;
     shields=3;
