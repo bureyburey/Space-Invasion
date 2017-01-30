@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Space Invasion!</title>
+         <script src="https://www.gstatic.com/firebasejs/3.6.7/firebase.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+     
+     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css">
+
+        <script src="https://rawgit.com/bureyburey/Scoreboard-Module/master/scoreboard.js"></script>
+        <!-- Press+Start+2P font -->
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        
+        <link rel="stylesheet" href="index.css">
+        <script src="index.js"></script>  
+    </head>
+    <body bgcolor='grey'>
+    <div id='canvasContainer'>
+        <canvas id='myCanvas'></canvas>
+    </div>
+    <div id='scoreContainer'><button id='showScoreboard'>Scoreboard</button>Level: <label id='levelValue'>1</label> Score: <label id='scoreValue'>0</label></div>
+    
+    <table id='bottomPanel'>
+        <tr><td>
+    <button id='newGame'>New Game</button>
+       </td>
+       <td>
+    <table id='hud'>
+        <tr><td>
+        [Shields: <label id='shieldsValue'>?</label>]
+        </td></tr>
+        <tr><td>
+        [Shots: <label id='numShotsValue'>?</label>]
+        </td></tr>
+        <tr><td>
+        [Shot Speed: <label id='speedShotsValue'>?</label>]
+        </td></tr>
+        <tr><td>
+        [Death Blossoms: <label id='deathBlossomsValue'>?</label>]
+        </td></tr>
+     </table>
+        </td>
+        <td>
+        <button id='fire'>FIRE</button>
+        </td><td>
+        <button id='death_blossom'>DB</button>
+        </td></tr>
+    </table>
+    <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCYMpPRV0fwkByb5kHBnzYI3yMyQNuJTOg",
+    authDomain: "spacecombat-ade1e.firebaseapp.com",
+    databaseURL: "https://spacecombat-ade1e.firebaseio.com",
+    storageBucket: "spacecombat-ade1e.appspot.com",
+    messagingSenderId: "1085844987374"
+  };
+  firebase.initializeApp(config);
+</script>
+    </body>
+</html>
