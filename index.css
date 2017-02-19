@@ -25,6 +25,14 @@ font-size:8px;
   z-index:1;*/
   border-radius:5%;
 }
+input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 3px;
+    /*height: 280px;*/
+    padding: 0 0px;
+}
 #hud{
     font-family:"Times New Roman";
     font-size:10px;
@@ -60,4 +68,50 @@ button{
 -moz-user-select: none;
 -ms-user-select: none;
 user-select: none;
+}
+
+
+/**
+ * Checkbox auto fire
+ */
+.autoFireCheckBox {
+width: 30px;
+height: 30px;
+background: #ddd;
+border-radius: 100%;
+position: relative;
+-webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+-moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+}
+
+/**
+ * Create the checkbox button
+ */
+.autoFireCheckBox label {
+display: block;
+width: 20px;
+height: 20px;
+border-radius: 100px;
+-webkit-transition: all .5s ease;
+-moz-transition: all .5s ease;
+-o-transition: all .5s ease;
+-ms-transition: all .5s ease;
+transition: all .5s ease;
+cursor: pointer;
+position: absolute;
+top: 5px;
+left: 5px;
+z-index: 1;
+background: #333;
+-webkit-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+-moz-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+}
+
+/**
+ * Create the checked state
+ */
+.autoFireCheckBox input[type=checkbox]:checked + label {
+    background: #26ca28;
 }
