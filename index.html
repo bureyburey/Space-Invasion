@@ -17,7 +17,23 @@
     </head>
     <body bgcolor='grey'>
     <div id='canvasContainer'>
+        <table>
+        <tr>
+        <td>
         <canvas id='myCanvas'></canvas>
+        </td>
+        <td>
+        <table id='yOffsetContainer' style="display:none;">
+        <tr><td>
+        <label id="yOffsetLabel">5</label>
+        </td></tr>
+        <tr><td>
+        <input id="yOffset" type="range" orient="vertical" value="5" min="-7" max="8" />
+        </td></tr>
+        </table>
+        </td>
+        </tr>
+        </table>
     </div>
     <div id='scoreContainer'><button id='showScoreboard'>Scoreboard</button>Lvl: <label id='levelValue'>?</label> Score: <label id='scoreValue'>?</label>/<label id='nextLevelValue'>?</label></div>
     
@@ -39,14 +55,26 @@
         <tr><td>
         [Death Blossoms: <label id='deathBlossomsValue'>?</label>]
         </td></tr>
+        <tr><td>
+        [AF Delay: <label id='autoFireDelayValue'>?</label>]
+        </td></tr>
      </table>
         </td>
         <td>
         <button id='fire'>FIRE</button>
         </td><td>
         <button id='death_blossom'>DB</button>
-        </td></tr>
+        </td>
+        <td>
+        <div class="autoFireCheckBox">
+              <input type="checkbox" value="1" id="autofire" name="" />
+              <label for="autofire"></label>
+          </div>
+        <!--<label><input type="checkbox" id="autofire"> AF</label>-->
+        </td>
+        </tr>
     </table>
+
     <script>
   // Initialize Firebase
   var config = {
